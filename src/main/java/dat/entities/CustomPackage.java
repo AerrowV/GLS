@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -17,7 +19,7 @@ public class CustomPackage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "tracking_number", unique = true)
     private String trackingNumber;
@@ -36,7 +38,12 @@ public class CustomPackage {
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
+    @OneToMany(mappedBy = "custompackage", cascade = CascadeType.ALL)
+    private Set<Shipment> shipments = new HashSet<>();
+
+
     @PrePersist
+
     protected void onCreate() {
         lastUpdated = LocalDateTime.now();
     }
