@@ -17,11 +17,32 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Double Latitude;
-    private Double Longitude;
-    private String Address;
-    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
-    private Set<Shipment> sourceShipment = new HashSet<>();
-    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
-    private Set<Shipment> destinationShipment = new HashSet<>();
+
+    private Double latitude;
+    private Double longitude;
+    private String address;
+
+    @OneToMany(mappedBy = "sourceLocation", cascade = CascadeType.ALL)
+    private Set<Shipment> sourceLocation = new HashSet<>();
+
+    @OneToMany(mappedBy = "destinationLocation", cascade = CascadeType.ALL)
+    private Set<Shipment> destinationLocation = new HashSet<>();
+
+    public void addSourceLocation(Shipment shipment) {
+        if (sourceLocation != null) {
+            sourceLocation.add(shipment);
+        }
+    }
+
+    public void addDestinationLocation(Shipment shipment) {
+        if (destinationLocation != null) {
+            destinationLocation.add(shipment);
+        }
+    }
+
+    public Location(Double latitude, Double longitude, String address) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+    }
 }

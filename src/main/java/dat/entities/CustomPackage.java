@@ -38,7 +38,7 @@ public class CustomPackage {
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
-    @OneToMany(mappedBy = "custompackage", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customPackage", cascade = CascadeType.ALL)
     private Set<Shipment> shipments = new HashSet<>();
 
 
@@ -51,5 +51,11 @@ public class CustomPackage {
     @PreUpdate
     protected void onUpdate() {
         lastUpdated = LocalDateTime.now();
+    }
+
+    public void addShipment(Shipment shipment) {
+        if(shipments != null) {
+            this.shipments.add(shipment);
+        }
     }
 }

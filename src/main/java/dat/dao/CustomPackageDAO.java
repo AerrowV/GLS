@@ -30,7 +30,7 @@ public class CustomPackageDAO {
                 return _Custom_package;
             } catch (Exception e) {
                 em.getTransaction().rollback();
-                throw new ApiException(401, "Error creating package");
+                throw new ApiException(401, "Error creating shipment");
             }
         }
     }
